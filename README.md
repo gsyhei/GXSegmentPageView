@@ -1,2 +1,2 @@
-# GXSegmentController
+# GXSegmentPageView
 Swift分段选择器，开发中....
