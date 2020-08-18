@@ -48,14 +48,11 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: GXSegmentPageViewDelegate {
-
     func segmentPageView(_ segmentPageView: GXSegmentPageView, progress: CGFloat) {
         NSLog("currentIndex = %d, willIndex = %d, progress = %f", segmentPageView.currentIndex, segmentPageView.willIndex, progress)
-
     }
     func segmentPageView(_ segmentPageView: GXSegmentPageView, at index: Int) {
-        let vc: OneViewController? = segmentPageView.child(at: index)
-        NSLog("at index = %d, numberText = %@", index, vc?.numberLabel.text ?? "")
+        NSLog("at index = %d", index)
     }
 }
 

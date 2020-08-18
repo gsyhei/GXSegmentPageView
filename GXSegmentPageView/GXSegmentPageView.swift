@@ -91,7 +91,7 @@ extension GXSegmentPageView: UICollectionViewDataSource, UICollectionViewDelegat
 extension GXSegmentPageView: UIScrollViewDelegate {
     // MARK: - UIScrollViewDelegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard !self.isScrollToBegin else { return }
+        guard !self.isScrollToBegin && self.currentIndex != self.willIndex else { return }
         var progress: CGFloat = 1.0
         let offsetX = scrollView.contentOffset.x, width = scrollView.frame.width
         let difference = (offsetX - CGFloat(self.willIndex) * width) / width
@@ -103,7 +103,7 @@ extension GXSegmentPageView: UIScrollViewDelegate {
         else if self.currentIndex > self.willIndex {
             progress = 1 - difference
         }
-        if (delegate?.responds(to: #selector(delegate?.segmentPageView(_:progress:)))) ?? false {
+        if delegate?.responds(to: #selector(delegate?.segmentPageView(_:progress:))) ?? false {
             self.delegate?.segmentPageView?(self, progress: progress)
         }
     }
@@ -111,13 +111,13 @@ extension GXSegmentPageView: UIScrollViewDelegate {
         let index = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
         guard self.currentIndex != index else { return }
         self.currentIndex = index
-        if (delegate?.responds(to: #selector(delegate?.segmentPageView(_:at:)))) ?? false {
+        if delegate?.responds(to: #selector(delegate?.segmentPageView(_:at:))) ?? false {
             self.delegate?.segmentPageView?(self, at: self.currentIndex)
         }
     }
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         self.isScrollToBegin = false
-        if (delegate?.responds(to: #selector(delegate?.segmentPageView(_:at:)))) ?? false {
+        if delegate?.responds(to: #selector(delegate?.segmentPageView(_:at:))) ?? false {
             self.delegate?.segmentPageView?(self, at: self.currentIndex)
         }
     }
@@ -126,11 +126,12 @@ extension GXSegmentPageView: UIScrollViewDelegate {
 extension GXSegmentPageView {
     func scrollToItem(to index: Int, animated: Bool) {
         guard self.currentIndex != index else { return }
-        self.currentIndex = index
         self.isScrollToBegin = true
+        self.willIndex = index
         let indexPath = IndexPath(item: index, section: 0)
         self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: animated)
-        if !animated && ((delegate?.responds(to: #selector(delegate?.segmentPageView(_:at:)))) ?? false) {
+        self.currentIndex = index
+        if !animated && (delegate?.responds(to: #selector(delegate?.segmentPageView(_:at:))) ?? false) {
             self.delegate?.segmentPageView?(self, at: index)
         }
     }
