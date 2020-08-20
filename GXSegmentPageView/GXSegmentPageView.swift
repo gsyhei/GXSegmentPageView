@@ -9,16 +9,15 @@
 import UIKit
 
 @objc protocol GXSegmentPageViewDelegate: NSObjectProtocol {
-    @objc optional func segmentPageView(_ segmentPageView: GXSegmentPageView, progress: CGFloat)
-    @objc optional func segmentPageView(_ segmentPageView: GXSegmentPageView, at index: Int)
+    @objc optional func segmentPageView(_ page: GXSegmentPageView, progress: CGFloat)
+    @objc optional func segmentPageView(_ page: GXSegmentPageView, at index: Int)
 }
 
 class GXSegmentPageView: UIView {
     public weak var delegate: GXSegmentPageViewDelegate?
-
+    public var children: [UIViewController] = []
     private let GXCellID: String = "GXCellID"
     private(set) weak var parentViewController: UIViewController?
-    private(set) var children: [UIViewController] = []
     private(set) var currentIndex: Int = 0
     private(set) var willIndex: Int = 0
     private var isScrollToBegin: Bool = false
@@ -50,9 +49,7 @@ class GXSegmentPageView: UIView {
 
     convenience init(frame: CGRect = .zero, parent: UIViewController, children: [UIViewController]) {
         self.init(frame: frame)
-        self.parentViewController = parent
-        self.children = children
-        self.addSubview(self.collectionView)
+        self.setupSegmentPageView(parent: parent, children: children)
     }
     
     override func layoutSubviews() {
@@ -97,10 +94,12 @@ extension GXSegmentPageView: UIScrollViewDelegate {
         let difference = (offsetX - CGFloat(self.willIndex) * width) / width
         // Scroll to the right
         if self.currentIndex < self.willIndex {
+            self.currentIndex = self.willIndex - 1
             progress = 1 + difference
         }
         // Scroll to the left
         else if self.currentIndex > self.willIndex {
+            self.currentIndex = self.willIndex + 1
             progress = 1 - difference
         }
         if delegate?.responds(to: #selector(delegate?.segmentPageView(_:progress:))) ?? false {
@@ -124,6 +123,12 @@ extension GXSegmentPageView: UIScrollViewDelegate {
 }
 
 extension GXSegmentPageView {
+    /// Xib initializes by calling a function
+    func setupSegmentPageView(parent: UIViewController, children: [UIViewController]) {
+        self.parentViewController = parent
+        self.children = children
+        self.addSubview(self.collectionView)
+    }
     func scrollToItem(to index: Int, animated: Bool) {
         guard self.currentIndex != index else { return }
         self.isScrollToBegin = true
@@ -131,24 +136,16 @@ extension GXSegmentPageView {
         let indexPath = IndexPath(item: index, section: 0)
         self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: animated)
         self.currentIndex = index
-        if !animated && (delegate?.responds(to: #selector(delegate?.segmentPageView(_:at:))) ?? false) {
-            self.delegate?.segmentPageView?(self, at: index)
+        if !animated {
+            self.isScrollToBegin = false
+            if delegate?.responds(to: #selector(delegate?.segmentPageView(_:at:))) ?? false {
+                self.delegate?.segmentPageView?(self, at: index)
+            }
         }
     }
     func child<T: UIViewController>(at index: Int, type: T.Type = T.self) -> T? {
         let child = self.children[index] as? T
         return child
-    }
-    func addChild(childController: UIViewController) {
-        self.children.append(childController)
-    }
-    func removeChild(childController: UIViewController) {
-        if let index = self.children.firstIndex(of: childController) {
-            self.children.remove(at: index)
-        }
-    }
-    func removeChild(at index: Int) {
-        self.children.remove(at: index)
     }
     func reloadData() {
         self.collectionView.reloadData()

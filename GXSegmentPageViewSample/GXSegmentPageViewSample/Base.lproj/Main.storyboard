@@ -14,45 +14,7 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qCV-e3-D6h">
-                                <rect key="frame" x="138" y="74" width="138" height="48"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="toCenter"/>
-                                <connections>
-                                    <action selector="toCenterClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="512-aF-enp"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HoH-4C-EW9">
-                                <rect key="frame" x="0.0" y="74" width="138" height="48"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="left"/>
-                                <connections>
-                                    <action selector="leftClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="E8u-k7-05D"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VDg-hg-vFE">
-                                <rect key="frame" x="276" y="74" width="138" height="48"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="right"/>
-                                <connections>
-                                    <action selector="rightClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="k4E-MF-dIR"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="qCV-e3-D6h" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="0kF-tG-0FP"/>
-                            <constraint firstItem="qCV-e3-D6h" firstAttribute="top" secondItem="HoH-4C-EW9" secondAttribute="top" id="35L-OZ-Dj2"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="VDg-hg-vFE" secondAttribute="trailing" id="4w2-MZ-VOt"/>
-                            <constraint firstItem="VDg-hg-vFE" firstAttribute="leading" secondItem="qCV-e3-D6h" secondAttribute="trailing" id="BO9-Y8-twr"/>
-                            <constraint firstItem="qCV-e3-D6h" firstAttribute="width" secondItem="HoH-4C-EW9" secondAttribute="width" id="DDg-gV-Yqs"/>
-                            <constraint firstItem="HoH-4C-EW9" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="Oxs-xB-wBX"/>
-                            <constraint firstItem="qCV-e3-D6h" firstAttribute="leading" secondItem="HoH-4C-EW9" secondAttribute="trailing" id="TDh-ZH-VDz"/>
-                            <constraint firstItem="HoH-4C-EW9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="aho-FG-6Jr"/>
-                            <constraint firstItem="VDg-hg-vFE" firstAttribute="top" secondItem="HoH-4C-EW9" secondAttribute="top" id="j61-RM-ZOe"/>
-                            <constraint firstItem="VDg-hg-vFE" firstAttribute="width" secondItem="HoH-4C-EW9" secondAttribute="width" id="mrm-qW-9F0"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
