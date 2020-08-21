@@ -10,11 +10,10 @@ import UIKit
 
 class OneViewController: UIViewController {
     @IBOutlet weak var numberLabel: UILabel!
-    private var number: Int = 0
 
-    init(number: Int) {
+    init(title: String) {
         super.init(nibName: String(describing: OneViewController.self), bundle: nil)
-        self.number = number
+        self.title = title
     }
     
     required init?(coder: NSCoder) {
@@ -29,6 +28,6 @@ class OneViewController: UIViewController {
         let b: CGFloat = CGFloat(50+arc4random_uniform(206))/255.0
         self.view.backgroundColor = UIColor(red: r, green: g, blue: b, alpha: 1.0)
         
-        self.numberLabel.text = String(self.number)
+        self.numberLabel.text = self.title
     }
 }

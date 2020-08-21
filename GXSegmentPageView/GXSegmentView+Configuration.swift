@@ -10,7 +10,7 @@ import UIKit
 
 extension GXSegmentTitleView {
     /// 风格
-    enum Style : Int {
+    enum PositionStyle : Int {
         /// 没有指示器
         case none   = 0
         /// 居上
@@ -35,8 +35,8 @@ extension GXSegmentTitleView {
     class Configuration: NSObject {
         // MARK: - GXSegmentView配置
         
-        /// 风格
-        var style: Style = .bottom
+        /// 位置风格
+        var positionStyle: PositionStyle = .bottom
         /// 弹性效果
         var bounces: Bool = true
         /// 是否显示底部线条

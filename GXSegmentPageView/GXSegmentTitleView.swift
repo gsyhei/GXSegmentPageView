@@ -15,14 +15,13 @@ class GXSegmentTitleView: UIView {
     private let kBeginTag: Int = 1000
     private var config: Configuration!
     private var titles: [String] = []
-    private var currentIndex: Int = 0
-    
     private var buttons: [UIButton] = []
     private var separators: [UIView] = []
     private var titlesSizes: [CGSize] = []
     private var indicatorFrames: [CGRect] = []
     private var titlesTotalWidth: CGFloat = 0.0
-    
+    private var currentIndex: Int = 0
+
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
@@ -117,7 +116,7 @@ fileprivate extension GXSegmentTitleView {
         if self.config.isShowBottomLine {
             self.addSubview(self.underline)
         }
-        if self.config.style != .none {
+        if self.config.positionStyle != .none {
             self.scrollView.addSubview(self.indicator)
         }
         for button in self.buttons {
@@ -149,7 +148,7 @@ fileprivate extension GXSegmentTitleView {
         for titleSize in self.titlesSizes {
             self.titlesTotalWidth += (titleSize.width + self.config.titleMargin * 2)
         }
-        if self.config.style != .none {
+        if self.config.positionStyle != .none {
             self.indicator.backgroundColor = self.config.indicatorColor
             self.indicator.layer.cornerRadius = self.config.indicatorCornerRadius
             self.indicator.layer.borderWidth = self.config.indicatorBorderWidth
@@ -161,8 +160,8 @@ fileprivate extension GXSegmentTitleView {
             button.setTitleColor(self.config.titleSelectedColor, for: .selected)
         }
         if self.config.isShowSeparator {
-            for line in self.separators {
-                line.backgroundColor = self.config.separatorColor
+            for separator in self.separators {
+                separator.backgroundColor = self.config.separatorColor
             }
         }
         self.updateContentLayout()
@@ -222,7 +221,7 @@ fileprivate extension GXSegmentTitleView {
         let left = button.frame.origin.x + (button.frame.width - width) * 0.5
         
         var top: CGFloat = 0.0
-        switch self.config.style {
+        switch self.config.positionStyle {
         case .top:
             top = self.config.indicatorMargin
         case .center:
@@ -247,7 +246,7 @@ fileprivate extension GXSegmentTitleView {
         guard self.currentIndex != index else {return}
         
         for (idx, button) in self.buttons.enumerated() {
-            if idx == index || idx == self.currentIndex { continue }
+            if idx == index && idx == self.currentIndex { continue }
             button.isSelected = false
             button.titleLabel?.font = self.config.titleNormalFont
             button.titleLabel?.textColor = self.config.titleNormalColor
@@ -322,18 +321,6 @@ fileprivate extension GXSegmentTitleView {
     func scrollTo(currentIndex: Int, willIndex: Int, progress: CGFloat) {
         let currButton: UIButton = self.buttons[currentIndex]
         let willButton: UIButton = self.buttons[willIndex]
-//
-//        if progress >= 0.9 {
-//            let left = willButton.center.x - self.scrollView.frame.width * 0.5
-//            let rect = CGRect(origin: CGPoint(x: left, y: 0), size: self.scrollView.frame.size)
-//            self.scrollView.scrollRectToVisible(rect, animated: true)
-//        }
-//        else {
-//            let left = currButton.center.x - self.scrollView.frame.width * 0.5
-//            let rect = CGRect(origin: CGPoint(x: left, y: 0), size: self.scrollView.frame.size)
-//            self.scrollView.scrollRectToVisible(rect, animated: true)
-//        }
-
         if self.config.indicatorStyle == .none {
             if progress >= 1.0 {
                 let frame = self.indicatorFrames[willIndex]

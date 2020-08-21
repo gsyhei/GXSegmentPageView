@@ -20,6 +20,7 @@
 		33417CA024EB484300E0EC70 /* OneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33417C9E24EB484300E0EC70 /* OneViewController.xib */; };
 		338F855D24ECAB2800A3DFE6 /* GXSegmentTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338F855C24ECAB2800A3DFE6 /* GXSegmentTitleView.swift */; };
 		338F855F24ECBA1400A3DFE6 /* GXSegmentView+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338F855E24ECBA1400A3DFE6 /* GXSegmentView+Configuration.swift */; };
+		33AFF6C324F00994000AE4AB /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AFF6C224F00994000AE4AB /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		33417C9E24EB484300E0EC70 /* OneViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OneViewController.xib; sourceTree = "<group>"; };
 		338F855C24ECAB2800A3DFE6 /* GXSegmentTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GXSegmentTitleView.swift; sourceTree = "<group>"; };
 		338F855E24ECBA1400A3DFE6 /* GXSegmentView+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GXSegmentView+Configuration.swift"; sourceTree = "<group>"; };
+		33AFF6C224F00994000AE4AB /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				33417C6824EB33B300E0EC70 /* AppDelegate.swift */,
 				33417C6A24EB33B300E0EC70 /* SceneDelegate.swift */,
 				33417C6C24EB33B300E0EC70 /* ViewController.swift */,
+				33AFF6C224F00994000AE4AB /* MainViewController.swift */,
 				33417C9D24EB484300E0EC70 /* OneViewController.swift */,
 				33417C9E24EB484300E0EC70 /* OneViewController.xib */,
 				33417C6E24EB33B300E0EC70 /* Main.storyboard */,
@@ -291,6 +294,7 @@
 				33417C6924EB33B300E0EC70 /* AppDelegate.swift in Sources */,
 				33417C6B24EB33B300E0EC70 /* SceneDelegate.swift in Sources */,
 				338F855D24ECAB2800A3DFE6 /* GXSegmentTitleView.swift in Sources */,
+				33AFF6C324F00994000AE4AB /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
