@@ -2,20 +2,23 @@
 //  GXSegmentView+Configuration.swift
 //  GXSegmentPageViewSample
 //
-//  Created by Gin on 2020/8/19.
+//  Created by Gin on 2020/8/21.
 //  Copyright © 2020 gin. All rights reserved.
 //
+
 import UIKit
 
-extension GXSegmentView {
+extension GXSegmentTitleView {
     /// 风格
     enum Style : Int {
         /// 没有指示器
-        case none  = 0
-        /// 下划线格式
-        case line  = 1
-        /// 遮盖格式
-        case cover = 2
+        case none   = 0
+        /// 居上
+        case top    = 1
+        /// 居中
+        case center = 2
+        /// 底部
+        case bottom = 3
     }
     /// 指示器滚动风格
     enum IndicatorStyle : Int {
@@ -29,11 +32,11 @@ extension GXSegmentView {
         case dynamic = 3
     }
     
-    struct Configuration {
+    class Configuration: NSObject {
         // MARK: - GXSegmentView配置
         
         /// 风格
-        var style: Style = .line
+        var style: Style = .bottom
         /// 弹性效果
         var bounces: Bool = true
         /// 是否显示底部线条
@@ -55,7 +58,7 @@ extension GXSegmentView {
         
         /// 正常标题字体
         var titleNormalFont: UIFont = .systemFont(ofSize: 15)
-        /// 选中标题字体(不能和titleSelectedScale一起使用)
+        /// 选中标题字体(不能和titleSelectedFontSize一起使用)
         var titleSelectedFont: UIFont = .boldSystemFont(ofSize: 15)
         /// 正常标题颜色
         var titleNormalColor: UIColor = .black
@@ -64,9 +67,9 @@ extension GXSegmentView {
         /// 是否有颜色梯度渐变效果
         var isTitleColorGradient: Bool = true
         /// 是否让标题文字具有缩放效果
-        var isTitleScale: Bool = true
+        var isTitleZoom: Bool = true
         /// 标题选中时的缩放比例（自己根据实际情况调整）
-        var titleSelectedScale: CGFloat = 1.2
+        var titleSelectedFontScale: CGFloat = 1.2
         /// 标题的边距
         var titleMargin: CGFloat = 20.0
         /// 标题的固定宽度（默认0为动态宽度，大于0则设置为固定宽度）
@@ -76,8 +79,6 @@ extension GXSegmentView {
         
         /// 指示器滚动风格
         var indicatorStyle: IndicatorStyle = .dynamic
-        /// 指示器的底部边距
-        var indicatorBottomMargin: CGFloat = 0.5
         /// 指示器颜色
         var indicatorColor: UIColor = .orange
         /// 指示器是否有滚动动画
@@ -90,30 +91,56 @@ extension GXSegmentView {
         var indicatorBorderWidth: CGFloat = 0.0
         /// 指示器边框颜色
         var indicatorBorderColor: UIColor = .clear
+        /// 指示器的底部或者顶部边距（top/bottom风格有效）
+        var indicatorMargin: CGFloat = 0.5
         
-        /**
-         备注说明：
-         1.line风格下indicatorFixedWidth为0默认为文本宽度，大于0则为固定宽度，top/bottom不启用
-         2.line风格下indicatorInset为zero默认为indicatorFixedWidth的设置，不为zero则为Item的宽度
-         3.line风格下indicatorAdditionMarginWidth可用
-         4.cover风格下indicatorInset为zero默认为文本宽高，不为zero则为Item的宽高
-         5.cover风格下indicatorAdditionMarginWidth|indicatorAdditionMarginHeight均可用
-         6.indicatorInset不为zero，则后续设置宽高部分均无效
-         */
-        
-        /// 指示器高度（* 仅line风格下有效）
-        var indicatorHeight: CGFloat = 2.0
-        /// 指示器的inset（line风格初始为item的宽、cover为item宽高，非zero时，下列属性不启用）
-        var indicatorInset: UIEdgeInsets = .zero
-        /// 指示器固定宽度（* 仅line风格下有效，默认0为动态跟标题一致的宽度，大于0则设置为固定宽度）
+        /// 指示器固定宽度（默认0为动态跟标题一致的宽度，大于0则设置为固定宽度）
         var indicatorFixedWidth: CGFloat = 0
-        /// 指示器添加的宽度（indicatorFixedWidth>0时不启用）
-        var indicatorAdditionMarginWidth: CGFloat = 0
-        /// 指示器添加的高度（* 仅cover下有效）
-        var indicatorAdditionMarginHeight: CGFloat = 0
+        /// 指示器固定高度（默认0为动态跟标题一致的高度，大于0则设置为固定高度）
+        var indicatorFixedHeight: CGFloat = 2.0
+        /// 指示器添加的宽度边距（indicatorFixedWidth>0时不启用）
+        var indicatorAdditionWidthMargin: CGFloat = 0
+        /// 指示器添加的高度边距（indicatorFixedHeight>0时不启用）
+        var indicatorAdditionHeightMargin: CGFloat = 0
+        
+        private(set) var normalRGB: [CGFloat] = Array(repeating: 0, count: 4)
+        private(set) var selectRGB: [CGFloat] = Array(repeating: 0, count: 4)
+        
+        func setupGradientColorRGB() {
+            self.normalRGB[0] = self.titleNormalColor.cgColor.components.red
+            self.normalRGB[1] = self.titleNormalColor.cgColor.components.green
+            self.normalRGB[2] = self.titleNormalColor.cgColor.components.blue
+            self.normalRGB[3] = self.titleNormalColor.cgColor.components.alpha
+            
+            self.selectRGB[0] = self.titleSelectedColor.cgColor.components.red
+            self.selectRGB[1] = self.titleSelectedColor.cgColor.components.green
+            self.selectRGB[2] = self.titleSelectedColor.cgColor.components.blue
+            self.selectRGB[3] = self.titleSelectedColor.cgColor.components.alpha
+        }
+        
+        func changeColor(progress: CGFloat, isWillSelected: Bool) -> UIColor {
+            let beginRGB: [CGFloat] = isWillSelected ? self.normalRGB : self.selectRGB
+            let endRGB: [CGFloat]   = isWillSelected ? self.selectRGB : self.normalRGB
+            
+            let r = (endRGB[0] - beginRGB[0]) * progress + beginRGB[0]
+            let g = (endRGB[1] - beginRGB[1]) * progress + beginRGB[1]
+            let b = (endRGB[2] - beginRGB[2]) * progress + beginRGB[2]
+            let a = (endRGB[3] - beginRGB[3]) * progress + beginRGB[3]
+            
+            return UIColor(red: r, green: g, blue: b, alpha: a)
+        }
+        
+        func changeFontScale(progress: CGFloat, isWillSelected: Bool) -> CGFloat {
+            let difference = self.titleSelectedFontScale - 1.0
+            if isWillSelected {
+                return 1.0 + difference * progress
+            } else {
+                return self.titleSelectedFontScale - difference * progress
+            }
+        }
     }
     
-    func gx_textSize(text: String, font: UIFont) -> CGSize {
+    func gx_textSize(_ text: String, font: UIFont) -> CGSize {
         let attributes: [NSAttributedString.Key : Any] = [.font: font]
         let attrString = NSAttributedString(string: text, attributes: attributes)
         let options: NSStringDrawingOptions = [.usesLineFragmentOrigin,.usesFontLeading]

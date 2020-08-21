@@ -18,10 +18,10 @@ class GXSegmentPageView: UIView {
     public var children: [UIViewController] = []
     private let GXCellID: String = "GXCellID"
     private(set) weak var parentViewController: UIViewController?
-    private(set) var currentIndex: Int = 0
-    private(set) var willIndex: Int = 0
+    private(set) var selectIndex: Int = 0
+    private(set) var willSelectIndex: Int = 0
     private var isScrollToBegin: Bool = false
-
+    
     private lazy var layout: UICollectionViewFlowLayout = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.itemSize = self.bounds.size
@@ -46,7 +46,7 @@ class GXSegmentPageView: UIView {
         
         return collectionView
     }()
-
+    
     convenience init(frame: CGRect = .zero, parent: UIViewController, children: [UIViewController]) {
         self.init(frame: frame)
         self.setupSegmentPageView(parent: parent, children: children)
@@ -70,7 +70,7 @@ extension GXSegmentPageView: UICollectionViewDataSource, UICollectionViewDelegat
     }
     // MARK: - UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        self.willIndex = indexPath.item
+        self.willSelectIndex = indexPath.item
         let child = children[indexPath.item]
         self.parentViewController?.addChild(child)
         child.view.frame = cell.contentView.frame
@@ -88,18 +88,18 @@ extension GXSegmentPageView: UICollectionViewDataSource, UICollectionViewDelegat
 extension GXSegmentPageView: UIScrollViewDelegate {
     // MARK: - UIScrollViewDelegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard !self.isScrollToBegin && self.currentIndex != self.willIndex else { return }
+        guard !self.isScrollToBegin && self.selectIndex != self.willSelectIndex else { return }
         var progress: CGFloat = 1.0
         let offsetX = scrollView.contentOffset.x, width = scrollView.frame.width
-        let difference = (offsetX - CGFloat(self.willIndex) * width) / width
+        let difference = (offsetX - CGFloat(self.willSelectIndex) * width) / width
         // Scroll to the right
-        if self.currentIndex < self.willIndex {
-            self.currentIndex = self.willIndex - 1
+        if self.selectIndex < self.willSelectIndex {
+            self.selectIndex = self.willSelectIndex - 1
             progress = 1 + difference
         }
-        // Scroll to the left
-        else if self.currentIndex > self.willIndex {
-            self.currentIndex = self.willIndex + 1
+            // Scroll to the left
+        else if self.selectIndex > self.willSelectIndex {
+            self.selectIndex = self.willSelectIndex + 1
             progress = 1 - difference
         }
         if delegate?.responds(to: #selector(delegate?.segmentPageView(_:progress:))) ?? false {
@@ -108,16 +108,16 @@ extension GXSegmentPageView: UIScrollViewDelegate {
     }
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let index = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
-        guard self.currentIndex != index else { return }
-        self.currentIndex = index
+        guard self.selectIndex != index else { return }
+        self.selectIndex = index
         if delegate?.responds(to: #selector(delegate?.segmentPageView(_:at:))) ?? false {
-            self.delegate?.segmentPageView?(self, at: self.currentIndex)
+            self.delegate?.segmentPageView?(self, at: self.selectIndex)
         }
     }
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         self.isScrollToBegin = false
         if delegate?.responds(to: #selector(delegate?.segmentPageView(_:at:))) ?? false {
-            self.delegate?.segmentPageView?(self, at: self.currentIndex)
+            self.delegate?.segmentPageView?(self, at: self.selectIndex)
         }
     }
 }
@@ -130,12 +130,15 @@ extension GXSegmentPageView {
         self.addSubview(self.collectionView)
     }
     func scrollToItem(to index: Int, animated: Bool) {
-        guard self.currentIndex != index else { return }
+        guard self.selectIndex != index else { return }
         self.isScrollToBegin = true
-        self.willIndex = index
+        self.willSelectIndex = index
         let indexPath = IndexPath(item: index, section: 0)
-        self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: animated)
-        self.currentIndex = index
+        self.collectionView.performBatchUpdates({
+        }) {[weak self] (finish) in
+            self?.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: animated)
+        }
+        self.selectIndex = index
         if !animated {
             self.isScrollToBegin = false
             if delegate?.responds(to: #selector(delegate?.segmentPageView(_:at:))) ?? false {

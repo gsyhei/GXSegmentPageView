@@ -17,23 +17,26 @@ class ViewController: UIViewController {
             children.append(vc)
         }
         var frame = self.view.bounds
-        frame.origin.y = 200
-        frame.size.height = self.view.bounds.height - 200
+        frame.origin.y = 60
+        frame.size.height = self.view.bounds.height - 60
         return GXSegmentPageView(frame: frame, parent: self, children: children)
     }()
 
-    private lazy var segmentView: GXSegmentView = {
+    private lazy var segmentView: GXSegmentTitleView = {
         var frame = self.view.bounds
         frame.origin.y = 20
         frame.size.height = 40
         let titles: [String] = ["新闻", "推荐的", "实时资讯", "新闻", "推荐的", "实时资讯", "新闻", "推荐的", "实时资讯"]
-        var config = GXSegmentView.Configuration()
-        config.style = .line
-        config.indicatorAdditionMarginWidth = 5.0
-        config.indicatorAdditionMarginHeight = 2.0
+        var config = GXSegmentTitleView.Configuration()
+        config.style = .bottom
+        config.indicatorStyle = .dynamic
+        config.indicatorFixedWidth = 30.0
+        config.indicatorFixedHeight = 2.0
+        config.indicatorAdditionWidthMargin = 5.0
+        config.indicatorAdditionHeightMargin = 2.0
         config.isShowSeparator = true
         config.separatorInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
-        var view = GXSegmentView(frame: frame, config: config, titles: titles)
+        var view = GXSegmentTitleView(frame: frame, config: config, titles: titles)
         
         return view
     }()
@@ -53,13 +56,13 @@ extension ViewController: GXSegmentPageViewDelegate {
         NSLog("at index = %d", index)
     }
     func segmentPageView(_ page: GXSegmentPageView, progress: CGFloat) {
-        NSLog("currentIndex = %d, willIndex = %d, progress = %f", page.currentIndex, page.willIndex, progress)
-        self.segmentView.setSegmentView(currentIndex: page.currentIndex, willIndex: page.willIndex, progress: progress)
+        NSLog("currentIndex = %d, willIndex = %d, progress = %f", page.selectIndex, page.willSelectIndex, progress)
+        self.segmentView.setSegmentTitleView(currentIndex: page.selectIndex, willIndex: page.willSelectIndex, progress: progress)
     }
 }
 
-extension ViewController: GXSegmentViewDelegate {
-    func segmentView(_ page: GXSegmentView, at index: Int) {
+extension ViewController: GXSegmentTitleViewDelegate {
+    func segmentTitleView(_ page: GXSegmentTitleView, at index: Int) {
         self.pageView.scrollToItem(to: index, animated: true)
     }
 }
