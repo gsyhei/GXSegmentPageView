@@ -77,6 +77,12 @@ extension GXSegmentTitleView {
         self.titles = titles
         self.createSubviews()
     }
+    func titleForIndex(at index: Int) -> String {
+        return self.titles[index]
+    }
+    func buttonForIndex(at index: Int) -> UIButton {
+        return self.buttons[index]
+    }
 }
 
 fileprivate extension GXSegmentTitleView {
