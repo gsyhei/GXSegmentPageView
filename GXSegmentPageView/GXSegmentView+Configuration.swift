@@ -81,8 +81,6 @@ extension GXSegmentTitleView {
         var indicatorStyle: IndicatorStyle = .dynamic
         /// 指示器颜色
         var indicatorColor: UIColor = .orange
-        /// 指示器是否有滚动动画
-        var isIndicatorAnimation: Bool = true
         /// 指示器的滚动动画持续时间
         var indicatorDuration: TimeInterval = 0.1
         /// 指示器圆角大小

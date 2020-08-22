@@ -106,7 +106,8 @@ extension MainViewController: GXSegmentPageViewDelegate {
         NSLog("index = %d", index)
     }
     func segmentPageView(_ page: GXSegmentPageView, progress: CGFloat) {
-        self.titleView4.setSegmentTitleView(currentIndex: page.selectIndex, willIndex: page.willSelectIndex, progress: progress)
+        NSLog("selectIndex = %d, willSelectIndex = %d", page.selectIndex, page.willSelectIndex)
+        self.titleView4.setSegmentTitleView(selectIndex: page.selectIndex, willSelectIndex: page.willSelectIndex, progress: progress)
     }
 }
 
