@@ -92,7 +92,7 @@ extension GXSegmentPageView: UIScrollViewDelegate {
     }
     // MARK: - UIScrollViewDelegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard !self.isScrollToBegin || self.selectIndex == self.willSelectIndex else { return }
+        guard !self.isScrollToBegin else { return }
         var progress: CGFloat = 1.0
         let offsetX = scrollView.contentOffset.x, width = scrollView.frame.width
         let difference = offsetX/width - floor(offsetX/width)

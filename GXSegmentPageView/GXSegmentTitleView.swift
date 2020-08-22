@@ -19,7 +19,7 @@ class GXSegmentTitleView: UIView {
     private var config: Configuration!
     private var titles: [String] = []
     private var titlesSizes: [CGSize] = []
-    private var cellsRects: [Int: CGRect] = [:]
+    private var cellsSizes: [Int: CGSize] = [:]
     private var indicatorRects: [Int: CGRect] = [:]
     private var titlesTotalWidth: CGFloat = 0.0
     private var selectedIndex: Int = 0
@@ -80,6 +80,7 @@ extension GXSegmentTitleView {
         self.collectionView.performBatchUpdates({
         }) {[weak self] (finish) in
             self?.setSelectedCell(at: index, animated: animated)
+            self?.setSelectedIndicator(at: index, animated: animated)
         }
     }
     /// 联动视图调用
@@ -119,7 +120,7 @@ fileprivate extension GXSegmentTitleView {
     /// 更新配置
     func updateConfiguration() {
         self.titlesSizes.removeAll()
-        self.cellsRects.removeAll()
+        self.cellsSizes.removeAll()
         self.indicatorRects.removeAll()
         self.config.setupGradientColorRGB()
         self.collectionView.bounces = self.config.bounces
@@ -153,25 +154,24 @@ fileprivate extension GXSegmentTitleView {
     }
     /// 计算获得cell的size
     func cellSize(cellForAt index: Int) -> CGSize {
-        if self.cellsRects[index] != nil {
-            return self.cellsRects[index]!.size
+        if self.cellsSizes[index] != nil {
+            return self.cellsSizes[index]!
         }
         let height = self.collectionView.frame.height
+        var width = self.config.titleFixedWidth
         // 标题为固定宽度
-        if self.config.titleFixedWidth > 0 {
-            let width = self.config.titleFixedWidth
-            return CGSize(width: width, height: height)
-        }
-        else {
+        if self.config.titleFixedWidth == 0 {
             // 标题为动态宽度,小于一屏配titleMargin补上
             var titleMargin = self.config.titleMargin * 2
             if self.titlesTotalWidth < self.collectionView.frame.width {
                 let differenceW = self.collectionView.frame.width - self.titlesTotalWidth
                 titleMargin +=  differenceW / CGFloat(self.titles.count)
             }
-            let width = self.titlesSizes[index].width + titleMargin
-            return CGSize(width: width, height: height)
+            width = self.titlesSizes[index].width + titleMargin
         }
+        let size = CGSize(width: width, height: height)
+        self.cellsSizes.updateValue(size, forKey: index)
+        return size
     }
     /// 获取指示器位置
     func rectIndicator(cell: GXSegmentTitleCell, index: Int) -> CGRect {
@@ -203,7 +203,7 @@ fileprivate extension GXSegmentTitleView {
         return rect
     }
     /// 设置选中项
-    func setSelectedCell(cell: GXSegmentTitleCell, at indexPath: IndexPath, animated: Bool) {
+    func setSelectedCell(cell: GXSegmentTitleCell?, at indexPath: IndexPath, animated: Bool) {
         self.selectedIndex = indexPath.item
         let seleIndexPath = IndexPath(item: self.selectedIndex, section: 0)
         let seleCell = self.collectionView.cellForItem(at: seleIndexPath) as? GXSegmentTitleCell
@@ -219,7 +219,15 @@ fileprivate extension GXSegmentTitleView {
             }
         }
         self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated:animated)
-        let indicatorFrame = self.rectIndicator(cell: cell, index: indexPath.item)
+    }
+    func setSelectedCell(at index: Int, animated: Bool) {
+        let indexPath = IndexPath(item: index, section: 0)
+        let cell = collectionView.cellForItem(at: indexPath) as? GXSegmentTitleCell
+        self.setSelectedCell(cell: cell, at: indexPath, animated: animated)
+    }
+    /// 设置滚动条
+    func setSelectedIndicator(cell: GXSegmentTitleCell, at index: Int, animated: Bool) {
+        let indicatorFrame = self.rectIndicator(cell: cell, index: index)
         if animated {
             UIView.animate(withDuration: self.config.indicatorDuration) {
                 self.indicator.frame = indicatorFrame
@@ -228,11 +236,11 @@ fileprivate extension GXSegmentTitleView {
             self.indicator.frame = indicatorFrame
         }
     }
-    func setSelectedCell(at index: Int, animated: Bool) {
+    func setSelectedIndicator(at index: Int, animated: Bool) {
         let indexPath = IndexPath(item: index, section: 0)
         let cell = collectionView.cellForItem(at: indexPath) as? GXSegmentTitleCell
         guard cell != nil else { return }
-        self.setSelectedCell(cell: cell!, at: indexPath, animated: animated)
+        self.setSelectedIndicator(cell: cell!, at: index, animated: animated)
     }
     /// 联动视图调用
     func scrollTo(selectIndex: Int, willSelectIndex: Int, progress: CGFloat) {
@@ -242,11 +250,11 @@ fileprivate extension GXSegmentTitleView {
         let willCell = collectionView.cellForItem(at: willIndexPath) as? GXSegmentTitleCell
         seleCell?.updateCellTitle(progress: progress, isWillSelected: false)
         willCell?.updateCellTitle(progress: progress, isWillSelected: true)
-        if progress >= 1.0 && willCell != nil {
-            self.setSelectedCell(cell: willCell!, at: willIndexPath, animated: true)
+        if progress >= 0.9 {
+            self.setSelectedCell(cell: willCell, at: willIndexPath, animated: true)
         }
-        else if progress <= 0.0 && seleCell != nil {
-            self.setSelectedCell(cell: seleCell!, at: seleIndexPath, animated: true)
+        else if progress <= 0.1 {
+            self.setSelectedCell(cell: seleCell, at: seleIndexPath, animated: true)
         }
         guard seleCell != nil && willCell != nil else { return }
         
@@ -351,6 +359,7 @@ extension GXSegmentTitleView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! GXSegmentTitleCell
         self.setSelectedCell(cell: cell, at: indexPath, animated: true)
+        self.setSelectedIndicator(cell: cell, at: indexPath.row, animated: true)
         if delegate?.responds(to: #selector(delegate?.segmentTitleView(_:at:))) ?? false {
             self.delegate?.segmentTitleView?(self, at: indexPath.item)
         }
