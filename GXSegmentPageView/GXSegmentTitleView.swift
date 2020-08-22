@@ -261,7 +261,7 @@ fileprivate extension GXSegmentTitleView {
         let seleFrame = self.rectIndicator(cell: seleCell!, index: selectIndex)
         let willFrame = self.rectIndicator(cell: willCell!, index: willSelectIndex)
         if self.config.indicatorStyle == .none {
-            if progress >= 1.0 {
+            if progress > 0.9 {
                 UIView.animate(withDuration: self.config.indicatorDuration) {
                     self.indicator.frame = willFrame
                 }

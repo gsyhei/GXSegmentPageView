@@ -93,27 +93,28 @@ extension GXSegmentPageView: UIScrollViewDelegate {
     // MARK: - UIScrollViewDelegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard !self.isScrollToBegin else { return }
-        var progress: CGFloat = 1.0
+        var progress: CGFloat = 0.0
         let offsetX = scrollView.contentOffset.x, width = scrollView.frame.width
-        let difference = offsetX/width - floor(offsetX/width)
+        let difference = offsetX.truncatingRemainder(dividingBy: width) / width
         // Scroll to the right
         if self.beginOffsetX < offsetX {
-            self.willSelectIndex = Int(offsetX / width)
-            self.selectIndex = self.willSelectIndex + 1
-            if self.selectIndex >= children.count {
-                self.selectIndex = self.willSelectIndex
-            }
-            progress = 1 - difference
-        }
-        // Scroll to the left
-        else if self.beginOffsetX > offsetX {
             self.selectIndex = Int(offsetX / width)
             self.willSelectIndex = self.selectIndex + 1
-            if self.willSelectIndex >= self.children.count {
+            if self.willSelectIndex >= children.count {
                 self.willSelectIndex = self.selectIndex
             }
             progress = difference
         }
+        // Scroll to the left
+        else if self.beginOffsetX > offsetX {
+            self.willSelectIndex = Int(offsetX / width)
+            self.selectIndex = self.willSelectIndex + 1
+            if self.selectIndex >= self.children.count {
+                self.selectIndex = self.willSelectIndex
+            }
+            progress = 1 - difference
+        }
+        guard self.selectIndex != self.willSelectIndex else { return }
         if delegate?.responds(to: #selector(delegate?.segmentPageView(_:progress:))) ?? false {
             self.delegate?.segmentPageView?(self, progress: progress)
         }
