@@ -146,7 +146,10 @@ extension GXSegmentPageView {
         self.isScrollToBegin = true
         self.willSelectIndex = index
         let indexPath = IndexPath(item: index, section: 0)
-        self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: animated)
+        self.collectionView.performBatchUpdates({
+        }) {[weak self] (finish) in
+            self?.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: animated)
+        }
         if !animated {
             self.selectIndex = index
             self.isScrollToBegin = false

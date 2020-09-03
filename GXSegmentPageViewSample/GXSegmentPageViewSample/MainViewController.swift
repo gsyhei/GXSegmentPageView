@@ -52,6 +52,7 @@ class MainViewController: UIViewController {
         config1.indicatorAdditionWidthMargin = 5.0
         config1.indicatorAdditionHeightMargin = 2.0
         config1.isShowSeparator = false
+        config1.indicatorDuration = 0.0
         config1.separatorInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
         self.titleView1.setupSegmentTitleView(config: config1, titles: self.items)
 
