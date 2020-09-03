@@ -86,11 +86,11 @@ extension GXSegmentPageView: UICollectionViewDataSource, UICollectionViewDelegat
 }
 
 extension GXSegmentPageView: UIScrollViewDelegate {
+    // MARK: - UIScrollViewDelegate
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.isScrollToBegin = false
         self.beginOffsetX = scrollView.contentOffset.x
     }
-    // MARK: - UIScrollViewDelegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard !self.isScrollToBegin else { return }
         var progress: CGFloat = 0.0
@@ -143,14 +143,10 @@ extension GXSegmentPageView {
         self.addSubview(self.collectionView)
     }
     func scrollToItem(to index: Int, animated: Bool) {
-        guard self.selectIndex != index else { return }
         self.isScrollToBegin = true
         self.willSelectIndex = index
         let indexPath = IndexPath(item: index, section: 0)
-        self.collectionView.performBatchUpdates({
-        }) {[weak self] (finish) in
-            self?.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: animated)
-        }
+        self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: animated)
         if !animated {
             self.selectIndex = index
             self.isScrollToBegin = false
