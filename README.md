@@ -1,21 +1,22 @@
 # GXSegmentPageView
 Swift版分段分页组件，（网易新闻、腾讯新闻、新浪微博、今日头条等Tab效果）。
-若有建议或增加需求更可直接可以联系QQ：279694479
-
-# 喜欢就给个star哦，QQ：279694479
+有建议可以联系QQ交流群:1101980843，喜欢就给个star哦，谢谢关注！
+<p align="center">
+<img src="https://github.com/gsyhei/GXCardView-Swift/blob/master/QQ.jpeg">
+</p>
 
 先上Demo效果图
 --
-
-![](/GXSegmentPageView.gif '描述')
-
+<p align="center">
+<img src="https://github.com/gsyhei/GXSegmentPageView/blob/master/GXSegmentPageView.gif">
+</p>
 
 Requirements
 --
 <p align="left">
-<a href="https://github.com/gsyhei/GXRefresh"><img src="https://img.shields.io/badge/platform-ios-yellow.svg"></a>
-<a href="https://github.com/gsyhei/GXRefresh"><img src="https://img.shields.io/github/license/johnlui/Pitaya.svg?style=flat"></a>
-<a href="https://github.com/gsyhei/GXRefresh"><img src="https://img.shields.io/badge/language-Swift%204.2-orange.svg"></a>
+<a href="https://github.com/gsyhei/GXSegmentPageView"><img src="https://img.shields.io/badge/platform-ios%209.0-yellow.svg"></a>
+<a href="https://github.com/gsyhei/GXSegmentPageView"><img src="https://img.shields.io/github/license/johnlui/Pitaya.svg?style=flat"></a>
+<a href="https://github.com/gsyhei/GXSegmentPageView"><img src="https://img.shields.io/badge/language-Swift%204.2-orange.svg"></a>
 </p>
 
 Usage in you Podfile:

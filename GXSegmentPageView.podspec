@@ -9,14 +9,14 @@
 Pod::Spec.new do |s|
 
   s.name          = "GXSegmentPageView"
-  s.version       = "1.0.0"
+  s.version       = "1.0.1"
   s.swift_version = "4.2"
   s.summary       = "Swift版分段分页组件，（网易新闻、腾讯新闻、新浪微博、今日头条等Tab效果）"
   s.homepage      = "https://github.com/gsyhei/GXSegmentPageView"
   s.license       = { :type => "MIT", :file => "LICENSE" }
   s.author        = { "Gin" => "279694479@qq.com" }
   s.platform      = :ios, "9.0"
-  s.source        = { :git => "https://github.com/gsyhei/GXSegmentPageView.git", :tag => "1.0.0" }
+  s.source        = { :git => "https://github.com/gsyhei/GXSegmentPageView.git", :tag => "1.0.1" }
   s.requires_arc  = true
   s.source_files  = "GXSegmentPageView"
  #s.resources     = 'GXSegmentPageView/Resource/**/*'
