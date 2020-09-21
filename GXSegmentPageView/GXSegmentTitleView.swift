@@ -8,11 +8,11 @@
 
 import UIKit
 
-@objc protocol GXSegmentTitleViewDelegate: NSObjectProtocol {
+@objc public protocol GXSegmentTitleViewDelegate: NSObjectProtocol {
     @objc optional func segmentTitleView(_ page: GXSegmentTitleView, at index: Int)
 }
 
-class GXSegmentTitleView: UIView {
+public class GXSegmentTitleView: UIView {
     public weak var delegate: GXSegmentTitleViewDelegate?
     
     private let GXCellID: String = "GXCellID"
@@ -66,7 +66,7 @@ class GXSegmentTitleView: UIView {
     }
 }
 
-extension GXSegmentTitleView {
+public extension GXSegmentTitleView {
     /// Xib initializes by calling a function
     func setupSegmentTitleView(config: Configuration, titles: [String]) {
         self.config = config
@@ -341,10 +341,10 @@ fileprivate extension GXSegmentTitleView {
 
 extension GXSegmentTitleView: UICollectionViewDataSource {
     // MARK: - UICollectionViewDataSource
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.titles.count
     }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: GXSegmentTitleCell = collectionView.dequeueReusableCell(withReuseIdentifier: GXCellID, for: indexPath) as! GXSegmentTitleCell
         let isMaxItem = indexPath.item == (self.titles.count - 1)
         cell.setCell(config: self.config, title: self.titles[indexPath.item], isMaxItem: isMaxItem)
@@ -356,7 +356,7 @@ extension GXSegmentTitleView: UICollectionViewDataSource {
 
 extension GXSegmentTitleView: UICollectionViewDelegateFlowLayout {
     // MARK: - UICollectionViewDelegate
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! GXSegmentTitleCell
         self.setSelectedCell(cell: cell, at: indexPath, animated: true)
         self.setSelectedIndicator(cell: cell, at: indexPath.row, animated: true)
@@ -365,7 +365,7 @@ extension GXSegmentTitleView: UICollectionViewDelegateFlowLayout {
         }
     }
     // MARK: - UICollectionViewDelegateFlowLayout
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return self.cellSize(cellForAt: indexPath.item)
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension GXSegmentTitleView {
+public extension GXSegmentTitleView {
     /// 风格
     enum PositionStyle : Int {
         /// 没有指示器
@@ -151,7 +151,7 @@ import UIKit
 #elseif os(OSX)
 import Cocoa
 #endif
-extension CGColor {
+public extension CGColor {
     var components: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
         var r: CGFloat = 0
         var g: CGFloat = 0

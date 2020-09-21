@@ -8,12 +8,12 @@
 
 import UIKit
 
-@objc protocol GXSegmentPageViewDelegate: NSObjectProtocol {
+@objc public protocol GXSegmentPageViewDelegate: NSObjectProtocol {
     @objc optional func segmentPageView(_ page: GXSegmentPageView, progress: CGFloat)
     @objc optional func segmentPageView(_ page: GXSegmentPageView, at index: Int)
 }
 
-class GXSegmentPageView: UIView {
+public class GXSegmentPageView: UIView {
     public weak var delegate: GXSegmentPageViewDelegate?
     public var children: [UIViewController] = []
     private let GXCellID: String = "GXCellID"
@@ -53,7 +53,7 @@ class GXSegmentPageView: UIView {
         self.setupSegmentPageView(parent: parent, children: children)
     }
     
-    override func layoutSubviews() {
+    public override func layoutSubviews() {
         super.layoutSubviews()
         self.layout.itemSize = self.bounds.size
         self.collectionView.frame = self.bounds
@@ -62,15 +62,15 @@ class GXSegmentPageView: UIView {
 
 extension GXSegmentPageView: UICollectionViewDataSource, UICollectionViewDelegate {
     // MARK: - UICollectionViewDataSource
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.children.count
     }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GXCellID, for: indexPath)
         return cell
     }
     // MARK: - UICollectionViewDelegate
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let child = children[indexPath.item]
         self.parentViewController?.addChild(child)
         child.view.frame = cell.contentView.frame
@@ -78,7 +78,7 @@ extension GXSegmentPageView: UICollectionViewDataSource, UICollectionViewDelegat
         cell.contentView.addSubview(child.view)
         child.didMove(toParent: self.parentViewController)
     }
-    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    public func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         cell.contentView.subviews.forEach { (subView) in
             subView.removeFromSuperview()
         }
@@ -87,11 +87,11 @@ extension GXSegmentPageView: UICollectionViewDataSource, UICollectionViewDelegat
 
 extension GXSegmentPageView: UIScrollViewDelegate {
     // MARK: - UIScrollViewDelegate
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.isScrollToBegin = false
         self.beginOffsetX = scrollView.contentOffset.x
     }
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard !self.isScrollToBegin else { return }
         var progress: CGFloat = 0.0
         let offsetX = scrollView.contentOffset.x, width = scrollView.frame.width
@@ -119,14 +119,14 @@ extension GXSegmentPageView: UIScrollViewDelegate {
             self.delegate?.segmentPageView?(self, progress: progress)
         }
     }
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.isScrollToBegin = false
         self.selectIndex = Int(scrollView.contentOffset.x / scrollView.frame.width)
         if delegate?.responds(to: #selector(delegate?.segmentPageView(_:at:))) ?? false {
             self.delegate?.segmentPageView?(self, at: self.selectIndex)
         }
     }
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+    public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         self.isScrollToBegin = false
         self.selectIndex = Int(scrollView.contentOffset.x / scrollView.frame.width)
         if delegate?.responds(to: #selector(delegate?.segmentPageView(_:at:))) ?? false {
@@ -135,7 +135,7 @@ extension GXSegmentPageView: UIScrollViewDelegate {
     }
 }
 
-extension GXSegmentPageView {
+public extension GXSegmentPageView {
     /// Xib initializes by calling a function
     func setupSegmentPageView(parent: UIViewController, children: [UIViewController]) {
         self.parentViewController = parent

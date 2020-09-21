@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GXSegmentTitleCell: UICollectionViewCell {
+public class GXSegmentTitleCell: UICollectionViewCell {
     private var config: GXSegmentTitleView.Configuration!
     
     public var isChecked: Bool = false {
@@ -40,7 +40,7 @@ class GXSegmentTitleCell: UICollectionViewCell {
     }
 }
 
-extension GXSegmentTitleCell {
+public extension GXSegmentTitleCell {
     func setCell(config: GXSegmentTitleView.Configuration, title: String, isMaxItem: Bool) {
         self.config = config
         self.titleLabel.text = title
