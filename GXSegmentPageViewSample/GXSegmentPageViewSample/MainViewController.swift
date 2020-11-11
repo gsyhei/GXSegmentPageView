@@ -71,11 +71,11 @@ class MainViewController: UIViewController {
 
         let config3 = GXSegmentTitleView.Configuration()
         config3.positionStyle = .bottom
-        config3.indicatorStyle = .dynamic
-        config3.indicatorFixedWidth = 30.0
-        config3.indicatorFixedHeight = 2.0
-        config3.indicatorAdditionWidthMargin = 5.0
-        config3.indicatorAdditionHeightMargin = 2.0
+        config3.indicatorStyle = .half
+        config3.indicatorFixedWidth = 0.0
+//        config3.indicatorFixedHeight = 2.0
+        config3.indicatorAdditionWidthMargin = config3.titleMargin
+//        config3.indicatorAdditionHeightMargin = 2.0
         config3.isShowSeparator = true
         config3.separatorInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         self.titleView3.setupSegmentTitleView(config: config3, titles: self.items)
@@ -107,8 +107,8 @@ extension MainViewController: GXSegmentPageViewDelegate {
         NSLog("index = %d", index)
     }
     func segmentPageView(_ page: GXSegmentPageView, progress: CGFloat) {
-        NSLog("select = %d, will = %d, progress = %f", page.selectIndex, page.willSelectIndex, progress)
-        self.titleView4.setSegmentTitleView(selectIndex: page.selectIndex, willSelectIndex: page.willSelectIndex, progress: progress)
+        NSLog("select = %d, will = %d, progress = %f", page.selectedIndex, page.willSelectedIndex, progress)
+        self.titleView4.setSegmentTitleView(selectIndex: page.selectedIndex, willSelectIndex: page.willSelectedIndex, progress: progress)
     }
 }
 

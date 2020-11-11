@@ -15,13 +15,25 @@ import UIKit
 
 public class GXSegmentPageView: UIView {
     public weak var delegate: GXSegmentPageViewDelegate?
-    public var children: [UIViewController] = []
+    private weak var parentViewController: UIViewController?
+    private var children: [UIViewController] = []
     private let GXCellID: String = "GXCellID"
-    private(set) weak var parentViewController: UIViewController?
-    private(set) var selectIndex: Int = 0
-    private(set) var willSelectIndex: Int = 0
     private var isScrollToBegin: Bool = false
     private var beginOffsetX: CGFloat = 0
+    private var selectIndex: Int = 0
+    private var willSelectIndex: Int = 0
+    
+    public var childrenVC: [UIViewController] {
+        return self.children
+    }
+
+    public var selectedIndex: Int {
+        return self.selectIndex
+    }
+    
+    public var willSelectedIndex: Int {
+        return self.willSelectIndex
+    }
     
     private lazy var layout: UICollectionViewFlowLayout = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -48,7 +60,7 @@ public class GXSegmentPageView: UIView {
         return collectionView
     }()
     
-    convenience init(frame: CGRect = .zero, parent: UIViewController, children: [UIViewController]) {
+    public convenience init(frame: CGRect = .zero, parent: UIViewController, children: [UIViewController]) {
         self.init(frame: frame)
         self.setupSegmentPageView(parent: parent, children: children)
     }

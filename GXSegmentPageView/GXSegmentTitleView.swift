@@ -60,7 +60,7 @@ public class GXSegmentTitleView: UIView {
         return indicator
     }()
     
-    convenience init(frame: CGRect, config: Configuration, titles: [String]) {
+    public convenience init(frame: CGRect, config: Configuration, titles: [String]) {
         self.init(frame: frame)
         self.setupSegmentTitleView(config: config, titles: titles)
     }

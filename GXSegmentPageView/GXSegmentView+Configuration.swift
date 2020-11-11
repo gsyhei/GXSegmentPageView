@@ -36,70 +36,70 @@ public extension GXSegmentTitleView {
         // MARK: - GXSegmentView配置
         
         /// 位置风格
-        var positionStyle: PositionStyle = .bottom
+        public var positionStyle: PositionStyle = .bottom
         /// 弹性效果
-        var bounces: Bool = true
+        public var bounces: Bool = true
         /// 是否显示底部线条
-        var isShowBottomLine: Bool = true
+        public var isShowBottomLine: Bool = true
         /// 底部线条颜色
-        var bottomLineColor: UIColor = .lightGray
+        public var bottomLineColor: UIColor = .lightGray
         /// 底部线条高度
-        var bottomLineHeight: CGFloat = 0.5
+        public var bottomLineHeight: CGFloat = 0.5
         /// 是否显示Item分割线
-        var isShowSeparator: Bool = false
+        public var isShowSeparator: Bool = false
         /// 分割线颜色
-        var separatorColor: UIColor = .orange
+        public var separatorColor: UIColor = .orange
         /// 分割线inset(top/bottom有效)
-        var separatorInset: UIEdgeInsets = .zero
+        public var separatorInset: UIEdgeInsets = .zero
         /// 分割线宽度
-        var separatorWidth: CGFloat = 1.0
+        public var separatorWidth: CGFloat = 1.0
         
         // MARK: - title属性配置
         
         /// 正常标题字体
-        var titleNormalFont: UIFont = .systemFont(ofSize: 15)
+        public var titleNormalFont: UIFont = .systemFont(ofSize: 15)
         /// 选中标题字体(不能和titleSelectedFontSize一起使用)
-        var titleSelectedFont: UIFont = .boldSystemFont(ofSize: 15)
+        public var titleSelectedFont: UIFont = .boldSystemFont(ofSize: 15)
         /// 正常标题颜色
-        var titleNormalColor: UIColor = .black
+        public var titleNormalColor: UIColor = .black
         /// 选中标题颜色
-        var titleSelectedColor: UIColor = .orange
+        public var titleSelectedColor: UIColor = .orange
         /// 是否有颜色梯度渐变效果
-        var isTitleColorGradient: Bool = true
+        public var isTitleColorGradient: Bool = true
         /// 是否让标题文字具有缩放效果
-        var isTitleZoom: Bool = true
+        public var isTitleZoom: Bool = true
         /// 标题选中时的缩放比例（自己根据实际情况调整）
-        var titleSelectedFontScale: CGFloat = 1.2
+        public var titleSelectedFontScale: CGFloat = 1.2
         /// 标题的边距
-        var titleMargin: CGFloat = 20.0
+        public var titleMargin: CGFloat = 20.0
         /// 标题的固定宽度（默认0为动态宽度，大于0则设置为固定宽度）
-        var titleFixedWidth: CGFloat = 0.0
+        public var titleFixedWidth: CGFloat = 0.0
         
         //MARK: - 指示器属性
         
         /// 指示器滚动风格
-        var indicatorStyle: IndicatorStyle = .dynamic
+        public var indicatorStyle: IndicatorStyle = .dynamic
         /// 指示器颜色
-        var indicatorColor: UIColor = .orange
+        public var indicatorColor: UIColor = .orange
         /// 指示器的滚动动画持续时间
-        var indicatorDuration: TimeInterval = 0.1
+        public var indicatorDuration: TimeInterval = 0.1
         /// 指示器圆角大小
-        var indicatorCornerRadius: CGFloat = 1.0
+        public var indicatorCornerRadius: CGFloat = 1.0
         /// 指示器边框宽度
-        var indicatorBorderWidth: CGFloat = 0.0
+        public var indicatorBorderWidth: CGFloat = 0.0
         /// 指示器边框颜色
-        var indicatorBorderColor: UIColor = .clear
+        public var indicatorBorderColor: UIColor = .clear
         /// 指示器的底部或者顶部边距（top/bottom风格有效）
-        var indicatorMargin: CGFloat = 0.5
+        public var indicatorMargin: CGFloat = 0.5
         
         /// 指示器固定宽度（默认0为动态跟标题一致的宽度，大于0则设置为固定宽度）
-        var indicatorFixedWidth: CGFloat = 0
+        public var indicatorFixedWidth: CGFloat = 0
         /// 指示器固定高度（默认0为动态跟标题一致的高度，大于0则设置为固定高度）
-        var indicatorFixedHeight: CGFloat = 2.0
+        public var indicatorFixedHeight: CGFloat = 2.0
         /// 指示器添加的宽度边距（indicatorFixedWidth>0时不启用）
-        var indicatorAdditionWidthMargin: CGFloat = 0
+        public var indicatorAdditionWidthMargin: CGFloat = 0
         /// 指示器添加的高度边距（indicatorFixedHeight>0时不启用）
-        var indicatorAdditionHeightMargin: CGFloat = 0
+        public var indicatorAdditionHeightMargin: CGFloat = 0
         
         private(set) var normalRGB: [CGFloat] = Array(repeating: 0, count: 4)
         private(set) var selectRGB: [CGFloat] = Array(repeating: 0, count: 4)
