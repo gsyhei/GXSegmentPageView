@@ -170,8 +170,10 @@ public extension GXSegmentPageView {
             }
         }
     }
-    func child<T: UIViewController>(at index: Int, type: T.Type = T.self) -> T? {
-        let child = self.children[index] as? T
+    func child<T: UIViewController>(at index: Int, type: T.Type = T.self) -> T {
+        guard let child = self.children[index] as? T else {
+            fatalError("Failed to child index \(index) matching type \(type.self). ")
+        }
         return child
     }
     func reloadData() {
