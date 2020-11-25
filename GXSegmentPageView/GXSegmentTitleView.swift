@@ -90,12 +90,10 @@ public extension GXSegmentTitleView {
     func setConfiguration(config: Configuration) {
         self.config = config
         self.updateConfiguration()
-        self.collectionView.reloadData()
     }
     func setTitles(titles: [String]) {
         self.titles = titles
         self.updateConfiguration()
-        self.collectionView.reloadData()
     }
     func setTitle(title: String, for index: Int) {
         self.titles[index] = title
@@ -145,6 +143,7 @@ fileprivate extension GXSegmentTitleView {
             self.indicator.layer.borderWidth = self.config.indicatorBorderWidth
             self.indicator.layer.borderColor = self.config.indicatorBorderColor.cgColor
         }
+        self.collectionView.reloadData()
         if self.config.positionStyle != .none {
             self.collectionView.performBatchUpdates({
             }) {[unowned self] (finish) in

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		33417C6924EB33B300E0EC70 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33417C6824EB33B300E0EC70 /* AppDelegate.swift */; };
-		33417C6B24EB33B300E0EC70 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33417C6A24EB33B300E0EC70 /* SceneDelegate.swift */; };
 		33417C6D24EB33B300E0EC70 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33417C6C24EB33B300E0EC70 /* ViewController.swift */; };
 		33417C7024EB33B300E0EC70 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33417C6E24EB33B300E0EC70 /* Main.storyboard */; };
 		33417C7224EB33B400E0EC70 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33417C7124EB33B400E0EC70 /* Assets.xcassets */; };
@@ -44,7 +43,6 @@
 /* Begin PBXFileReference section */
 		33417C6524EB33B200E0EC70 /* GXSegmentPageViewSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GXSegmentPageViewSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33417C6824EB33B300E0EC70 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		33417C6A24EB33B300E0EC70 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		33417C6C24EB33B300E0EC70 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		33417C6F24EB33B300E0EC70 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		33417C7124EB33B400E0EC70 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -115,7 +113,6 @@
 			children = (
 				33417C9824EB33CA00E0EC70 /* GXSegmentPageView */,
 				33417C6824EB33B300E0EC70 /* AppDelegate.swift */,
-				33417C6A24EB33B300E0EC70 /* SceneDelegate.swift */,
 				33417C6C24EB33B300E0EC70 /* ViewController.swift */,
 				33AFF6C224F00994000AE4AB /* MainViewController.swift */,
 				33417C9D24EB484300E0EC70 /* OneViewController.swift */,
@@ -295,7 +292,6 @@
 				338F855F24ECBA1400A3DFE6 /* GXSegmentView+Configuration.swift in Sources */,
 				33417C6D24EB33B300E0EC70 /* ViewController.swift in Sources */,
 				33417C6924EB33B300E0EC70 /* AppDelegate.swift in Sources */,
-				33417C6B24EB33B300E0EC70 /* SceneDelegate.swift in Sources */,
 				338F855D24ECAB2800A3DFE6 /* GXSegmentTitleView.swift in Sources */,
 				335A73EC24F10E9D00743AFC /* GXSegmentTitleCell.swift in Sources */,
 				33AFF6C324F00994000AE4AB /* MainViewController.swift in Sources */,
@@ -476,6 +472,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L54KZN9KMH;
 				INFOPLIST_FILE = GXSegmentPageViewSample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -494,6 +491,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L54KZN9KMH;
 				INFOPLIST_FILE = GXSegmentPageViewSample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
