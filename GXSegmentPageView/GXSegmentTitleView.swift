@@ -77,11 +77,8 @@ public extension GXSegmentTitleView {
     }
     /// 设置选项卡位置
     func setSelectIndex(at index: Int, animated: Bool = false) {
-        self.collectionView.performBatchUpdates({
-        }) {[weak self] (finish) in
-            self?.setSelectedCell(at: index, animated: animated)
-            self?.setSelectedIndicator(at: index, animated: animated)
-        }
+        self.setSelectedCell(at: index, animated: animated)
+        self.setSelectedIndicator(at: index, animated: animated)
     }
     /// 联动视图调用
     func setSegmentTitleView(selectIndex: Int, willSelectIndex: Int, progress: CGFloat) {
@@ -144,11 +141,9 @@ fileprivate extension GXSegmentTitleView {
             self.indicator.layer.borderColor = self.config.indicatorBorderColor.cgColor
         }
         self.collectionView.reloadData()
+        self.layoutIfNeeded()
         if self.config.positionStyle != .none {
-            self.collectionView.performBatchUpdates({
-            }) {[unowned self] (finish) in
-                self.collectionView.sendSubviewToBack(self.indicator)
-            }
+            self.collectionView.sendSubviewToBack(self.indicator)
         }
     }
     /// 计算获得cell的size

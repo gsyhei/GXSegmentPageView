@@ -132,14 +132,12 @@ extension GXSegmentPageView: UIScrollViewDelegate {
         }
     }
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        self.isScrollToBegin = false
         self.selectIndex = Int(scrollView.contentOffset.x / scrollView.frame.width)
         if delegate?.responds(to: #selector(delegate?.segmentPageView(_:at:))) ?? false {
             self.delegate?.segmentPageView?(self, at: self.selectIndex)
         }
     }
     public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        self.isScrollToBegin = false
         self.selectIndex = Int(scrollView.contentOffset.x / scrollView.frame.width)
         if delegate?.responds(to: #selector(delegate?.segmentPageView(_:at:))) ?? false {
             self.delegate?.segmentPageView?(self, at: self.selectIndex)
@@ -158,10 +156,7 @@ public extension GXSegmentPageView {
         self.isScrollToBegin = true
         self.willSelectIndex = index
         let indexPath = IndexPath(item: index, section: 0)
-        self.collectionView.performBatchUpdates({
-        }) {[weak self] (finish) in
-            self?.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: animated)
-        }
+        self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: animated)
         if !animated {
             self.selectIndex = index
             self.isScrollToBegin = false
