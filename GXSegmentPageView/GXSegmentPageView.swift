@@ -45,7 +45,7 @@ public class GXSegmentPageView: UIView {
         return flowLayout
     }()
     
-    private lazy var collectionView: UICollectionView = {
+    public lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: self.bounds, collectionViewLayout: self.layout)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
