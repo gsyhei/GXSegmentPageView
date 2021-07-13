@@ -60,8 +60,14 @@ public class GXSegmentPageView: UIView {
         return collectionView
     }()
     
+    public override func awakeFromNib() {
+        super.awakeFromNib()
+        self.addSubview(self.collectionView)
+    }
+    
     public convenience init(frame: CGRect = .zero, parent: UIViewController, children: [UIViewController]) {
         self.init(frame: frame)
+        self.addSubview(self.collectionView)
         self.setupSegmentPageView(parent: parent, children: children)
     }
     
@@ -150,7 +156,6 @@ public extension GXSegmentPageView {
     func setupSegmentPageView(parent: UIViewController, children: [UIViewController]) {
         self.parentViewController = parent
         self.children = children
-        self.addSubview(self.collectionView)
     }
     func scrollToItem(to index: Int, animated: Bool) {
         self.isScrollToBegin = true
