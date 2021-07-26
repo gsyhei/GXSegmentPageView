@@ -21,6 +21,7 @@
 		338F855D24ECAB2800A3DFE6 /* GXSegmentTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338F855C24ECAB2800A3DFE6 /* GXSegmentTitleView.swift */; };
 		338F855F24ECBA1400A3DFE6 /* GXSegmentView+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338F855E24ECBA1400A3DFE6 /* GXSegmentView+Configuration.swift */; };
 		33AFF6C324F00994000AE4AB /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AFF6C224F00994000AE4AB /* MainViewController.swift */; };
+		964F70B526AF268D00E2DD30 /* GXSegmentCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964F70B426AF268D00E2DD30 /* GXSegmentCollectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		338F855C24ECAB2800A3DFE6 /* GXSegmentTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GXSegmentTitleView.swift; sourceTree = "<group>"; };
 		338F855E24ECBA1400A3DFE6 /* GXSegmentView+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GXSegmentView+Configuration.swift"; sourceTree = "<group>"; };
 		33AFF6C224F00994000AE4AB /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		964F70B426AF268D00E2DD30 /* GXSegmentCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GXSegmentCollectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +148,7 @@
 		33417C9824EB33CA00E0EC70 /* GXSegmentPageView */ = {
 			isa = PBXGroup;
 			children = (
+				964F70B426AF268D00E2DD30 /* GXSegmentCollectionView.swift */,
 				338F855E24ECBA1400A3DFE6 /* GXSegmentView+Configuration.swift */,
 				335A73EB24F10E9D00743AFC /* GXSegmentTitleCell.swift */,
 				338F855C24ECAB2800A3DFE6 /* GXSegmentTitleView.swift */,
@@ -292,6 +295,7 @@
 				338F855F24ECBA1400A3DFE6 /* GXSegmentView+Configuration.swift in Sources */,
 				33417C6D24EB33B300E0EC70 /* ViewController.swift in Sources */,
 				33417C6924EB33B300E0EC70 /* AppDelegate.swift in Sources */,
+				964F70B526AF268D00E2DD30 /* GXSegmentCollectionView.swift in Sources */,
 				338F855D24ECAB2800A3DFE6 /* GXSegmentTitleView.swift in Sources */,
 				335A73EC24F10E9D00743AFC /* GXSegmentTitleCell.swift in Sources */,
 				33AFF6C324F00994000AE4AB /* MainViewController.swift in Sources */,
