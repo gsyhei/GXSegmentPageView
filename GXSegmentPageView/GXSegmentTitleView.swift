@@ -73,7 +73,9 @@ public extension GXSegmentTitleView {
         self.titles = titles
         self.setupSubviews()
         self.updateConfiguration()
-        self.setSelectIndex(at: 0)
+        if titles.count > 0 {
+            self.setSelectIndex(at: 0)
+        }
     }
     /// 设置选项卡位置
     @objc func setSelectIndex(at index: Int, animated: Bool = false) {
