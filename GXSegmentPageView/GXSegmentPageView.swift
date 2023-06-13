@@ -14,7 +14,7 @@ import UIKit
 }
 
 public class GXSegmentPageView: UIView {
-    public weak var delegate: GXSegmentPageViewDelegate?
+    @objc public weak var delegate: GXSegmentPageViewDelegate?
     private weak var parentViewController: UIViewController?
     private var children: [UIViewController] = []
     private let GXCellID: String = "GXCellID"
@@ -23,15 +23,15 @@ public class GXSegmentPageView: UIView {
     private var selectIndex: Int = 0
     private var willSelectIndex: Int = 0
     
-    public var childrenVC: [UIViewController] {
+    @objc public var childrenVC: [UIViewController] {
         return self.children
     }
 
-    public var selectedIndex: Int {
+    @objc public var selectedIndex: Int {
         return self.selectIndex
     }
     
-    public var willSelectedIndex: Int {
+    @objc public var willSelectedIndex: Int {
         return self.willSelectIndex
     }
     
@@ -153,11 +153,11 @@ extension GXSegmentPageView: UIScrollViewDelegate {
 
 public extension GXSegmentPageView {
     /// Xib initializes by calling a function
-    func setupSegmentPageView(parent: UIViewController, children: [UIViewController]) {
+    @objc func setupSegmentPageView(parent: UIViewController, children: [UIViewController]) {
         self.parentViewController = parent
         self.children = children
     }
-    func scrollToItem(to index: Int, animated: Bool) {
+    @objc func scrollToItem(to index: Int, animated: Bool) {
         self.isScrollToBegin = true
         self.willSelectIndex = index
         let indexPath = IndexPath(item: index, section: 0)
@@ -176,7 +176,7 @@ public extension GXSegmentPageView {
         }
         return child
     }
-    func reloadData() {
+    @objc func reloadData() {
         self.collectionView.reloadData()
     }
 }

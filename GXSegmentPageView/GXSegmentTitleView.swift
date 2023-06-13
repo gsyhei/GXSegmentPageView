@@ -13,7 +13,7 @@ import UIKit
 }
 
 public class GXSegmentTitleView: UIView {
-    public weak var delegate: GXSegmentTitleViewDelegate?
+    @objc public weak var delegate: GXSegmentTitleViewDelegate?
     
     private let GXCellID: String = "GXCellID"
     private var config: Configuration!
@@ -60,7 +60,7 @@ public class GXSegmentTitleView: UIView {
         return indicator
     }()
     
-    public convenience init(frame: CGRect, config: Configuration, titles: [String]) {
+    @objc public convenience init(frame: CGRect, config: Configuration, titles: [String]) {
         self.init(frame: frame)
         self.setupSegmentTitleView(config: config, titles: titles)
     }
@@ -68,7 +68,7 @@ public class GXSegmentTitleView: UIView {
 
 public extension GXSegmentTitleView {
     /// Xib initializes by calling a function
-    func setupSegmentTitleView(config: Configuration, titles: [String]) {
+    @objc func setupSegmentTitleView(config: Configuration, titles: [String]) {
         self.config = config
         self.titles = titles
         self.setupSubviews()
@@ -76,27 +76,27 @@ public extension GXSegmentTitleView {
         self.setSelectIndex(at: 0)
     }
     /// 设置选项卡位置
-    func setSelectIndex(at index: Int, animated: Bool = false) {
+    @objc func setSelectIndex(at index: Int, animated: Bool = false) {
         self.setSelectedCell(at: index, animated: animated)
         self.setSelectedIndicator(at: index, animated: animated)
     }
     /// 联动视图调用
-    func setSegmentTitleView(selectIndex: Int, willSelectIndex: Int, progress: CGFloat) {
+    @objc func setSegmentTitleView(selectIndex: Int, willSelectIndex: Int, progress: CGFloat) {
         self.scrollTo(selectIndex: selectIndex, willSelectIndex: willSelectIndex, progress: progress)
     }
-    func setConfiguration(config: Configuration) {
+    @objc func setConfiguration(config: Configuration) {
         self.config = config
         self.updateConfiguration()
     }
-    func setTitles(titles: [String]) {
+    @objc func setTitles(titles: [String]) {
         self.titles = titles
         self.updateConfiguration()
     }
-    func setTitle(title: String, for index: Int) {
+    @objc func setTitle(title: String, for index: Int) {
         self.titles[index] = title
         self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
     }
-    func titleForIndex(at index: Int) -> String {
+    @objc func titleForIndex(at index: Int) -> String {
         return self.titles[index]
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 
 public extension GXSegmentTitleView {
     /// 风格
-    enum PositionStyle : Int {
+    @objc enum PositionStyle : Int {
         /// 没有指示器
         case none   = 0
         /// 居上
@@ -21,7 +21,7 @@ public extension GXSegmentTitleView {
         case bottom = 3
     }
     /// 指示器滚动风格
-    enum IndicatorStyle : Int {
+    @objc enum IndicatorStyle : Int {
         /// 指示器位置需内容滚动结束时改变
         case none    = 0
         /// 指示器位置需内容滚动一半时改变
@@ -32,74 +32,74 @@ public extension GXSegmentTitleView {
         case dynamic = 3
     }
     
-    class Configuration: NSObject {
+    @objc class Configuration: NSObject {
         // MARK: - GXSegmentView配置
         
         /// 位置风格
-        public var positionStyle: PositionStyle = .bottom
+        @objc public var positionStyle: PositionStyle = .bottom
         /// 弹性效果
-        public var bounces: Bool = true
+        @objc public var bounces: Bool = true
         /// 是否显示底部线条
-        public var isShowBottomLine: Bool = true
+        @objc public var isShowBottomLine: Bool = true
         /// 底部线条颜色
-        public var bottomLineColor: UIColor = .lightGray
+        @objc public var bottomLineColor: UIColor = .lightGray
         /// 底部线条高度
-        public var bottomLineHeight: CGFloat = 0.5
+        @objc public var bottomLineHeight: CGFloat = 0.5
         /// 是否显示Item分割线
-        public var isShowSeparator: Bool = false
+        @objc public var isShowSeparator: Bool = false
         /// 分割线颜色
-        public var separatorColor: UIColor = .orange
+        @objc public var separatorColor: UIColor = .orange
         /// 分割线inset(top/bottom有效)
-        public var separatorInset: UIEdgeInsets = .zero
+        @objc public var separatorInset: UIEdgeInsets = .zero
         /// 分割线宽度
-        public var separatorWidth: CGFloat = 1.0
+        @objc public var separatorWidth: CGFloat = 1.0
         
         // MARK: - title属性配置
         
         /// 正常标题字体
-        public var titleNormalFont: UIFont = .systemFont(ofSize: 15)
+        @objc public var titleNormalFont: UIFont = .systemFont(ofSize: 15)
         /// 选中标题字体(不能和titleSelectedFontSize一起使用)
-        public var titleSelectedFont: UIFont = .boldSystemFont(ofSize: 15)
+        @objc public var titleSelectedFont: UIFont = .boldSystemFont(ofSize: 15)
         /// 正常标题颜色
-        public var titleNormalColor: UIColor = .black
+        @objc public var titleNormalColor: UIColor = .black
         /// 选中标题颜色
-        public var titleSelectedColor: UIColor = .orange
+        @objc public var titleSelectedColor: UIColor = .orange
         /// 是否有颜色梯度渐变效果
-        public var isTitleColorGradient: Bool = true
+        @objc public var isTitleColorGradient: Bool = true
         /// 是否让标题文字具有缩放效果
-        public var isTitleZoom: Bool = true
+        @objc public var isTitleZoom: Bool = true
         /// 标题选中时的缩放比例（自己根据实际情况调整）
-        public var titleSelectedFontScale: CGFloat = 1.2
+        @objc public var titleSelectedFontScale: CGFloat = 1.2
         /// 标题的边距
-        public var titleMargin: CGFloat = 20.0
+        @objc public var titleMargin: CGFloat = 20.0
         /// 标题的固定宽度（默认0为动态宽度，大于0则设置为固定宽度）
-        public var titleFixedWidth: CGFloat = 0.0
+        @objc public var titleFixedWidth: CGFloat = 0.0
         
         //MARK: - 指示器属性
         
         /// 指示器滚动风格
-        public var indicatorStyle: IndicatorStyle = .dynamic
+        @objc public var indicatorStyle: IndicatorStyle = .dynamic
         /// 指示器颜色
-        public var indicatorColor: UIColor = .orange
+        @objc public var indicatorColor: UIColor = .orange
         /// 指示器的滚动动画持续时间
-        public var indicatorDuration: TimeInterval = 0.1
+        @objc public var indicatorDuration: TimeInterval = 0.1
         /// 指示器圆角大小
-        public var indicatorCornerRadius: CGFloat = 1.0
+        @objc public var indicatorCornerRadius: CGFloat = 1.0
         /// 指示器边框宽度
-        public var indicatorBorderWidth: CGFloat = 0.0
+        @objc public var indicatorBorderWidth: CGFloat = 0.0
         /// 指示器边框颜色
-        public var indicatorBorderColor: UIColor = .clear
+        @objc public var indicatorBorderColor: UIColor = .clear
         /// 指示器的底部或者顶部边距（top/bottom风格有效）
-        public var indicatorMargin: CGFloat = 0.5
+        @objc public var indicatorMargin: CGFloat = 0.5
         
         /// 指示器固定宽度（默认0为动态跟标题一致的宽度，大于0则设置为固定宽度）
-        public var indicatorFixedWidth: CGFloat = 0
+        @objc public var indicatorFixedWidth: CGFloat = 0
         /// 指示器固定高度（默认0为动态跟标题一致的高度，大于0则设置为固定高度）
-        public var indicatorFixedHeight: CGFloat = 2.0
+        @objc public var indicatorFixedHeight: CGFloat = 2.0
         /// 指示器添加的宽度边距（indicatorFixedWidth>0时不启用）
-        public var indicatorAdditionWidthMargin: CGFloat = 0
+        @objc public var indicatorAdditionWidthMargin: CGFloat = 0
         /// 指示器添加的高度边距（indicatorFixedHeight>0时不启用）
-        public var indicatorAdditionHeightMargin: CGFloat = 0
+        @objc public var indicatorAdditionHeightMargin: CGFloat = 0
         
         private(set) var normalRGB: [CGFloat] = Array(repeating: 0, count: 4)
         private(set) var selectRGB: [CGFloat] = Array(repeating: 0, count: 4)
@@ -138,7 +138,7 @@ public extension GXSegmentTitleView {
         }
     }
     
-    func gx_textSize(_ text: String, font: UIFont) -> CGSize {
+    @objc func gx_textSize(_ text: String, font: UIFont) -> CGSize {
         let attributes: [NSAttributedString.Key : Any] = [.font: font]
         let attrString = NSAttributedString(string: text, attributes: attributes)
         let options: NSStringDrawingOptions = [.usesLineFragmentOrigin,.usesFontLeading]
