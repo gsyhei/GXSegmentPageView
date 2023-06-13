@@ -156,6 +156,7 @@ public extension GXSegmentPageView {
     @objc func setupSegmentPageView(parent: UIViewController, children: [UIViewController]) {
         self.parentViewController = parent
         self.children = children
+        self.reloadData()
     }
     @objc func scrollToItem(to index: Int, animated: Bool) {
         self.isScrollToBegin = true
