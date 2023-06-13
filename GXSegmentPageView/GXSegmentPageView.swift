@@ -45,7 +45,7 @@ public class GXSegmentPageView: UIView {
         return flowLayout
     }()
     
-    public lazy var collectionView: GXSegmentCollectionView = {
+    @objc public lazy var collectionView: GXSegmentCollectionView = {
         let collectionView = GXSegmentCollectionView(frame: self.bounds, collectionViewLayout: self.layout)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
@@ -65,7 +65,7 @@ public class GXSegmentPageView: UIView {
         self.addSubview(self.collectionView)
     }
     
-    public convenience init(frame: CGRect = .zero, parent: UIViewController, children: [UIViewController]) {
+    @objc public convenience init(frame: CGRect = .zero, parent: UIViewController, children: [UIViewController]) {
         self.init(frame: frame)
         self.addSubview(self.collectionView)
         self.setupSegmentPageView(parent: parent, children: children)
