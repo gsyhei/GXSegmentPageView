@@ -54,7 +54,7 @@ public class GXSegmentTitleView: UIView {
         return line
     }()
     
-    private lazy var indicator: UIView = {
+    public lazy var indicator: UIView = {
         let indicator = UIView()
         indicator.autoresizingMask = [.flexibleTopMargin]
         return indicator
@@ -63,6 +63,11 @@ public class GXSegmentTitleView: UIView {
     @objc public convenience init(frame: CGRect, config: Configuration, titles: [String]) {
         self.init(frame: frame)
         self.setupSegmentTitleView(config: config, titles: titles)
+    }
+    
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        self.updateConfiguration()
     }
 }
 
@@ -141,12 +146,15 @@ fileprivate extension GXSegmentTitleView {
             self.indicator.layer.cornerRadius = self.config.indicatorCornerRadius
             self.indicator.layer.borderWidth = self.config.indicatorBorderWidth
             self.indicator.layer.borderColor = self.config.indicatorBorderColor.cgColor
+            self.collectionView.sendSubviewToBack(self.indicator)
+        }
+        // 标题为动态宽度,小于一屏配minimumInteritemSpacing补上
+        if self.config.isNoFullAverage && self.titlesTotalWidth < self.collectionView.frame.width {
+            let differenceW = self.collectionView.frame.width - self.titlesTotalWidth
+            self.layout.minimumInteritemSpacing = floor(differenceW / CGFloat(self.titles.count - 1))
         }
         self.collectionView.reloadData()
         self.layoutIfNeeded()
-        if self.config.positionStyle != .none {
-            self.collectionView.sendSubviewToBack(self.indicator)
-        }
     }
     /// 计算获得cell的size
     func cellSize(cellForAt index: Int) -> CGSize {
@@ -155,14 +163,9 @@ fileprivate extension GXSegmentTitleView {
         }
         let height = self.collectionView.frame.height
         var width = self.config.titleFixedWidth
-        // 标题为固定宽度
-        if self.config.titleFixedWidth == 0 {
-            // 标题为动态宽度,小于一屏配titleMargin补上
+        // 标题为动态的宽度
+        if width == 0 {
             var titleMargin = self.config.titleMargin * 2
-            if self.titlesTotalWidth < self.collectionView.frame.width {
-                let differenceW = self.collectionView.frame.width - self.titlesTotalWidth
-                titleMargin +=  differenceW / CGFloat(self.titles.count)
-            }
             width = self.titlesSizes[index].width + titleMargin
         }
         let size = CGSize(width: width, height: height)

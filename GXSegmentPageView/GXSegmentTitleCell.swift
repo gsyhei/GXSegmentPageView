@@ -67,6 +67,7 @@ public extension GXSegmentTitleCell {
     }
     func updateCellTitle(isChecked: Bool, animated: Bool) {
         let color = isChecked ? self.config.titleSelectedColor:self.config.titleNormalColor
+        let font = isChecked ? self.config.titleSelectedFont:self.config.titleNormalFont
         let scale = self.config.titleSelectedFontScale
         let transform = isChecked ? CGAffineTransform(scaleX: scale, y: scale):.identity
         
@@ -80,7 +81,7 @@ public extension GXSegmentTitleCell {
                 self.titleLabel.transform = transform
             }
         } else {
-            self.titleLabel.font = self.config.titleSelectedFont
+            self.titleLabel.font = font
         }
     }
 }
