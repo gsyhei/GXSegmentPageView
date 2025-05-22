@@ -74,8 +74,10 @@ public extension GXSegmentTitleView {
         @objc public var titleMargin: CGFloat = 20.0
         /// 标题的固定宽度（默认0为动态宽度，大于0则设置为固定宽度）
         @objc public var titleFixedWidth: CGFloat = 0.0
-        /// 开启内容不满屏的情况下标题均匀分布
+        /// 开启内容不满屏的情况下标题是否均匀分布
         @objc public var isNoFullAverage: Bool = true
+        /// 开启内容不满屏的情况下指示器是否均匀分布
+        @objc public var isNoFullAverageAndIndicator: Bool = false
         
         //MARK: - 指示器属性
         

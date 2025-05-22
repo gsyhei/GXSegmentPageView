@@ -100,6 +100,8 @@ extension GXSegmentPageView: UICollectionViewDataSource, UICollectionViewDelegat
         cell.contentView.subviews.forEach { (subView) in
             subView.removeFromSuperview()
         }
+        let child = children[indexPath.item]
+        child.removeFromParent()
     }
 }
 

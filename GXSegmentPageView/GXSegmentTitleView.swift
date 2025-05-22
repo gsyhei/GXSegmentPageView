@@ -121,6 +121,8 @@ fileprivate extension GXSegmentTitleView {
     }
     /// 更新配置
     func updateConfiguration() {
+        guard self.titles.count > 0 else { return }
+        
         self.titlesSizes.removeAll()
         self.cellsSizes.removeAll()
         self.indicatorRects.removeAll()
@@ -141,6 +143,20 @@ fileprivate extension GXSegmentTitleView {
         for titleSize in self.titlesSizes {
             self.titlesTotalWidth += (titleSize.width + self.config.titleMargin * 2)
         }
+        // 标题为动态宽度,小于一屏配minimumInteritemSpacing补上
+        if self.config.isNoFullAverage && self.titlesTotalWidth < self.collectionView.frame.width {
+            if self.config.isNoFullAverageAndIndicator {
+                self.config.titleFixedWidth = self.collectionView.frame.width / CGFloat(self.titles.count)
+                self.config.indicatorFixedWidth = self.config.titleFixedWidth
+            }
+            else {
+                let differenceW = self.collectionView.frame.width - self.titlesTotalWidth
+                self.layout.minimumInteritemSpacing = floor(differenceW / CGFloat(self.titles.count - 1))
+            }
+        }
+        self.collectionView.reloadData()
+        self.layoutIfNeeded()
+        
         if self.config.positionStyle != .none {
             self.indicator.backgroundColor = self.config.indicatorColor
             self.indicator.layer.cornerRadius = self.config.indicatorCornerRadius
@@ -148,13 +164,6 @@ fileprivate extension GXSegmentTitleView {
             self.indicator.layer.borderColor = self.config.indicatorBorderColor.cgColor
             self.collectionView.sendSubviewToBack(self.indicator)
         }
-        // 标题为动态宽度,小于一屏配minimumInteritemSpacing补上
-        if self.config.isNoFullAverage && self.titlesTotalWidth < self.collectionView.frame.width {
-            let differenceW = self.collectionView.frame.width - self.titlesTotalWidth
-            self.layout.minimumInteritemSpacing = floor(differenceW / CGFloat(self.titles.count - 1))
-        }
-        self.collectionView.reloadData()
-        self.layoutIfNeeded()
     }
     /// 计算获得cell的size
     func cellSize(cellForAt index: Int) -> CGSize {
