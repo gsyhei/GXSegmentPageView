@@ -174,7 +174,7 @@ fileprivate extension GXSegmentTitleView {
         var width = self.config.titleFixedWidth
         // 标题为动态的宽度
         if width == 0 {
-            var titleMargin = self.config.titleMargin * 2
+            let titleMargin = self.config.titleMargin * 2
             width = self.titlesSizes[index].width + titleMargin
         }
         let size = CGSize(width: width, height: height)
